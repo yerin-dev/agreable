@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Visual from "../components/Home/Visual";
+import VisualContainer from "./../containers/VisualContainer";
 
 function Home() {
   return (
     <Container>
-      <Visual />
+      <VisualContainer />
     </Container>
   );
 }
