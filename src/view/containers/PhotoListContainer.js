@@ -1,25 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import { productActions } from "../../redux/ActionCreators";
-import PhotoList from "./../components/Photos/PhotoList";
+import PhotoList from "../components/Photos/PhotoList";
+import InfiniteScroll from "../../InfiniteScroll/index";
 
-function PhotoListContainer() {
-  const { item = [] } = useSelector(state => state.product);
+function PhotoListContainer({ match }) {
+  const { item = [], isLoading } = useSelector(state => state.product);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     productActions.getProductItems({
-      page: 1
+      page
     });
-  }, []);
+  }, [page]);
+
+  useEffect(() => {
+    return () => {
+      productActions.deleteHistory();
+      setPage(1);
+    };
+  }, [match.url]);
+
+  const getMoreItems = () => {
+    if (6 <= page) return;
+    setPage(prevPage => prevPage + 1);
+  };
+
+  const options = {
+    rootMargin: "25%"
+  };
 
   return (
-    <Container>
+    <InfiniteScroll getMoreItems={getMoreItems} options={options} isLoading={isLoading}>
       <PhotoList data={item} />
-    </Container>
+    </InfiniteScroll>
   );
 }
-
-const Container = styled.div``;
 
 export default PhotoListContainer;
