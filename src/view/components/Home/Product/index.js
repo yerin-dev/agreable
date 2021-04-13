@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { font } from "./../../../../styled/Font";
 import PhotoListContainer from "./../../../containers/PhotoListContainer";
 
-function Product() {
+function Product({ match }) {
   return (
     <Container>
       <Title>윙잇 MADE</Title>
-      <PhotoListContainer />
+      <PhotoListContainer match={match} />
     </Container>
   );
 }

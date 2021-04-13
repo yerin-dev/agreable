@@ -3,11 +3,11 @@ import styled from "styled-components";
 import VisualContainer from "./../containers/VisualContainer";
 import Product from "./../components/Home/Product/index";
 
-function Home() {
+function Home({ match }) {
   return (
     <Container>
       <VisualContainer />
-      <Product />
+      <Product match={match} />
     </Container>
   );
 }
