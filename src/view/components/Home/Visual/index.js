@@ -38,6 +38,7 @@ function Visual({ data }) {
             </SwiperSlide>
           ))}
         </Swiper>
+        <PlaceHolderImage src="https://via.placeholder.com/1200x400.png/f5f5f5/f5f5f5%20?text=no%20image" />
       </Contents>
     </Container>
   );
@@ -64,11 +65,15 @@ const Contents = styled.div`
   margin: 0 auto;
   max-width: 1600px;
   background: #f5f5f5;
+  position: relative;
 
   .swiper-container {
-    height: 0;
-    overflow: hidden;
-    padding-bottom: 33.3333%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
 
     .swiper-slide {
       text-align: center;
@@ -97,6 +102,12 @@ const Contents = styled.div`
       }
     }
   }
+`;
+
+const PlaceHolderImage = styled.img`
+  width: 1600px;
+  max-width: 100%;
+  opacity: 0;
 `;
 
 export default Visual;
