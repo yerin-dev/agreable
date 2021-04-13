@@ -1,10 +1,13 @@
 import { createActions, createReducer } from "reduxsauce";
 
-const initialState = {};
+const initialState = {
+  item: []
+};
 
 export const Action = createActions(
   {
-    updateState: ["props"]
+    updateState: ["props"],
+    getProductItems: ["data"]
   },
   {
     prefix: "PRODUCT/"
