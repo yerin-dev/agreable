@@ -4,6 +4,7 @@ import { font } from "../../../styled/Font";
 import { addCommaPrice } from "../../../lib/Common";
 import { URL } from "../../../constants/Consts";
 import useCartButton from "./../../../hooks/useCartButton";
+import { PropTypes } from "prop-types";
 
 function CartItem({ item = {} }) {
   const [itemPrice, setItemPrice] = useState(item?.price);
@@ -22,10 +23,10 @@ function CartItem({ item = {} }) {
       <CloseButton onClick={handleRemoveButton} data-id={item.id}>
         삭제하기
       </CloseButton>
-      <ItemTitle>{item.itemName}</ItemTitle>
+      <ItemTitle className="e_">{item.itemName}</ItemTitle>
       <ItemInfo>
         <Image>
-          <img src={URL.VISUAL_BASE_URL + item.image} alt="" />
+          <img src={URL.VISUAL_BASE_URL + item.image} alt={item.itemName} />
         </Image>
         <Info>
           <Price>{addCommaPrice(item.price)}원</Price>
@@ -44,6 +45,16 @@ function CartItem({ item = {} }) {
     </li>
   );
 }
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    itemName: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+    count: PropTypes.number
+  })
+};
 
 const CloseButton = styled.button`
   position: absolute;
@@ -85,6 +96,7 @@ const ItemTitle = styled.h3`
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.4px;
+  padding-right: 35px;
 `;
 
 const ItemInfo = styled.div`

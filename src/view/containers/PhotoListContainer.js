@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { productActions } from "../../redux/ActionCreators";
 import PhotoList from "../components/Photos/PhotoList";
 import InfiniteScroll from "../../InfiniteScroll/index";
+import { PropTypes } from "prop-types";
 
 function PhotoListContainer({ match }) {
   const { item = [], isLoading } = useSelector(state => state.product);
@@ -40,5 +41,12 @@ function PhotoListContainer({ match }) {
     </InfiniteScroll>
   );
 }
+
+PhotoListContainer.propTypes = {
+  item: PropTypes.array,
+  match: PropTypes.shape({
+    url: PropTypes.string
+  })
+};
 
 export default PhotoListContainer;

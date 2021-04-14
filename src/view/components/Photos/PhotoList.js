@@ -4,6 +4,7 @@ import PhotoCard from "./PhotoCard";
 import _ from "lodash";
 import PhotoListSkeleton from "./../Loader/PhotoListSkeleton";
 import { media } from "../../../styled/Responsive";
+import { PropTypes } from "prop-types";
 
 function PhotoList({ data }) {
   if (_.isEmpty(data)) return <PhotoListSkeleton />;
@@ -18,6 +19,10 @@ function PhotoList({ data }) {
     </Container>
   );
 }
+
+PhotoList.propTypes = {
+  data: PropTypes.array
+};
 
 const Container = styled.div`
   max-width: 1600px;
