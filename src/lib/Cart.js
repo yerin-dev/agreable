@@ -38,8 +38,17 @@ export const removeCartItem = id => {
   return itemCount;
 };
 
+export const reversedCartCheckBox = id => {
+  const data = getCartStorage();
+  let target = data.find(d => d.id === id);
+  target.checked = !target.checked;
+
+  setCartStorage(data);
+};
+
 export const reduceTotalPrice = data => {
-  const result = data.map(item => {
+  const isChecked = data.filter(item => item.checked);
+  const result = isChecked.map(item => {
     return item.price * item.count;
   });
 
@@ -53,8 +62,8 @@ export const addCart = (id, item) => {
   let target = data.find(d => d.id === id);
 
   if (!target) {
-    target = Object.assign(item, { count: 0 });
-    data.push(target);
+    target = Object.assign(item, { count: 0, checked: true });
+    data.unshift(target);
   }
   target.count++;
 
