@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { font } from "../../../styled/Font";
 import { addCommaPrice } from "../../../lib/Common";
 import { getCartStorage, reduceTotalPrice } from "./../../../lib/Cart";
+import { media } from "../../../styled/Responsive";
+import { PropTypes } from "prop-types";
 
 function CartPayment({ item }) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -23,10 +25,23 @@ function CartPayment({ item }) {
   );
 }
 
+CartPayment.propTypes = {
+  item: PropTypes.array
+};
+
 const Container = styled.div`
   width: 500px;
   margin-left: 24px;
   margin-top: 24px;
+
+  ${media.lessThan("lg")`
+    width:400px;
+  `};
+
+  ${media.lessThan("md")`
+    width:100%;
+    margin-left:0;
+  `};
 `;
 
 const Payment = styled.div`
@@ -43,6 +58,11 @@ const Payment = styled.div`
     letter-spacing: -0.4px;
     color: #555;
     width: 150px;
+
+    ${media.lessThan("lg")`
+      font-size: 20px;
+      width: 130px;
+    `};
   }
 `;
 
@@ -53,6 +73,11 @@ const Price = styled.div`
   font-size: 36px;
   width: calc(100% - 150px);
   text-align: right;
+
+  ${media.lessThan("lg")`
+    font-size: 24px;
+    width: calc(100% - 130px);
+  `};
 `;
 
 const Button = styled.button`
