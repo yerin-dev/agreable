@@ -2,15 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { URL } from "../../../constants/Consts";
 import { font } from "../../../styled/Font";
-import { addCart, totalCount, addCommaPrice } from "./../../../lib/Common";
+import { reduceTotalCount, addCommaPrice } from "./../../../lib/Common";
+import { addCart } from "./../../../lib/Cart";
 import { appActions } from "../../../redux/ActionCreators";
 
 function PhotoCard({ item }) {
   const handleOnClick = e => {
-    const [data] = addCart(e, item);
+    const targetId = e.currentTarget.id;
+    const [data] = addCart(targetId, item);
 
     appActions.updateState({
-      totalCount: totalCount(data, "count")
+      totalCartNum: reduceTotalCount(data)
     });
   };
 
