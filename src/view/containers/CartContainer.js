@@ -5,12 +5,12 @@ import { getCartStorage } from "./../../lib/Cart";
 import { PropTypes } from "prop-types";
 
 function CartContainer() {
-  const { totalCartNum } = useSelector(state => state.app);
+  const { totalCartNum, modifyCartCheckBox } = useSelector(state => state.cart);
   const [data, setData] = useState(getCartStorage());
 
   useEffect(() => {
     setData(getCartStorage());
-  }, [totalCartNum]);
+  }, [totalCartNum, modifyCartCheckBox]);
 
   return <CartComponent data={data} />;
 }
