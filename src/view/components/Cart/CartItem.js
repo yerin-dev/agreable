@@ -8,7 +8,11 @@ import { PropTypes } from "prop-types";
 
 function CartItem({ item = {} }) {
   const [itemPrice, setItemPrice] = useState(item?.price);
-  const { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton } = useCartButton(item?.count);
+  const [checkBox, setCheckBox] = useState(item.checked);
+  const { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton, handleCheckBox } = useCartButton(
+    item?.count,
+    setCheckBox
+  );
 
   useEffect(() => {
     setItemPrice(addCommaPrice(item.price * count));
@@ -23,7 +27,13 @@ function CartItem({ item = {} }) {
       <CloseButton onClick={handleRemoveButton} data-id={item.id}>
         삭제하기
       </CloseButton>
-      <ItemTitle className="e_">{item.itemName}</ItemTitle>
+      <ItemTitle>
+        <CheckBox data-id={item.id}>
+          <input type="checkbox" id={`checkBox${item.id}`} title="장바구니 체크박스" checked={checkBox} onChange={handleCheckBox} />
+          <label htmlFor={`checkBox${item.id}`} />
+        </CheckBox>
+        <Title className="e_">{item.itemName}</Title>
+      </ItemTitle>
       <ItemInfo>
         <Image>
           <img src={URL.VISUAL_BASE_URL + item.image} alt={item.itemName} />
@@ -92,11 +102,72 @@ const CloseButton = styled.button`
   }
 `;
 
-const ItemTitle = styled.h3`
+const ItemTitle = styled.div`
+  position: relative;
+`;
+
+const CheckBox = styled.div`
+  position: absolute;
+  top: 2px;
+  left: 0;
+
+  input[type*="checkbox"] {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+
+    &:checked + label:after {
+      content: "";
+      display: block;
+    }
+
+    & + label {
+      display: block;
+      width: 22px;
+      height: 22px;
+      position: relative;
+      cursor: pointer;
+
+      &:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        width: 22px;
+        height: 22px;
+        text-align: center;
+        border: 1px solid #cecece;
+        border-radius: 20px;
+        box-sizing: border-box;
+      }
+
+      &:after {
+        position: absolute;
+        content: "";
+        top: 6px;
+        left: 5px;
+        width: 9px;
+        height: 4px;
+        display: none;
+        border-left: 3px solid #000;
+        border-bottom: 3px solid #000;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+`;
+
+const Title = styled.h3`
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.4px;
+  padding-left: 32px;
   padding-right: 35px;
+  line-height: 1.5;
 `;
 
 const ItemInfo = styled.div`

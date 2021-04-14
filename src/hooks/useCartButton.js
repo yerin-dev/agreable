@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { minusCartButton, plusCartButton, removeCartItem } from "../lib/Cart";
-import { appActions } from "./../redux/ActionCreators";
+import { timestamp } from "../lib/Common";
+import { minusCartButton, plusCartButton, removeCartItem, reversedCartCheckBox } from "../lib/Cart";
+import { cartActions } from "./../redux/ActionCreators";
 
-function useCartButton(initValue) {
+function useCartButton(initValue, setCheckBox) {
   const [count, setCount] = useState(initValue);
-  const { totalCartNum } = useSelector(state => state.app);
+  const { totalCartNum } = useSelector(state => state.cart);
 
   const handlePlusButton = e => {
     const id = e.currentTarget.parentNode.dataset.id;
     if (count < 100) {
       plusCartButton(id, count);
       setCount(prev => prev + 1);
-      appActions.updateState({ totalCartNum: totalCartNum + 1 });
+      cartActions.updateState({ totalCartNum: totalCartNum + 1 });
     }
   };
 
@@ -22,17 +23,24 @@ function useCartButton(initValue) {
     if (count > 1) {
       minusCartButton(id, count);
       setCount(prev => prev - 1);
-      appActions.updateState({ totalCartNum: totalCartNum - 1 });
+      cartActions.updateState({ totalCartNum: totalCartNum - 1 });
     }
   };
 
   const handleRemoveButton = e => {
     const id = e.currentTarget.dataset.id;
     const itemCount = removeCartItem(id);
-    appActions.updateState({ totalCartNum: totalCartNum - itemCount });
+    cartActions.updateState({ totalCartNum: totalCartNum - itemCount });
   };
 
-  return { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton };
+  const handleCheckBox = e => {
+    const id = e.currentTarget.parentNode.dataset.id;
+    reversedCartCheckBox(id);
+    setCheckBox(prev => !prev);
+    cartActions.updateState({ modifyCartCheckBox: timestamp() });
+  };
+
+  return { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton, handleCheckBox };
 }
 
 export default useCartButton;
