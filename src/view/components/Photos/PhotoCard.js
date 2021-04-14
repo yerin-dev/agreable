@@ -2,16 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import { URL } from "../../../constants/Consts";
 import { font } from "../../../styled/Font";
+import { addCart, totalCount, addCommaPrice } from "./../../../lib/Common";
+import { appActions } from "../../../redux/ActionCreators";
 
 function PhotoCard({ item }) {
+  const handleOnClick = e => {
+    const [data] = addCart(e, item);
+
+    appActions.updateState({
+      totalCount: totalCount(data, "count")
+    });
+  };
+
   return (
     <li>
-      <Button>
+      <Button onClick={handleOnClick} id={item.id}>
         <Image>
           <img src={URL.VISUAL_BASE_URL + item.image} alt="" />
         </Image>
         <Title>{item.itemName}</Title>
-        {item.price && <Price>{Number(item.price).toLocaleString("en")}원</Price>}
+        {item.price && <Price>{addCommaPrice(item.price)}원</Price>}
       </Button>
     </li>
   );
