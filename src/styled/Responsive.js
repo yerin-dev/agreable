@@ -1,8 +1,8 @@
 import { generateMedia } from "styled-media-query";
 
 export const breakPoint = {
-  LG: 1140,
-  MD: 992,
+  LG: 1260,
+  MD: 920,
   SM: 768,
   XS: 542
 };
