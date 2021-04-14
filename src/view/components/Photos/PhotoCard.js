@@ -5,6 +5,7 @@ import { font } from "../../../styled/Font";
 import { reduceTotalCount, addCommaPrice } from "./../../../lib/Common";
 import { addCart } from "./../../../lib/Cart";
 import { appActions } from "../../../redux/ActionCreators";
+import { media } from "../../../styled/Responsive";
 
 function PhotoCard({ item }) {
   const handleOnClick = e => {
@@ -49,6 +50,10 @@ const Image = styled.div`
   img {
     width: 100%;
   }
+
+  ${media.lessThan("sm")`
+  border-radius: 10px;
+  `};
 `;
 
 const Title = styled.h3`
@@ -57,6 +62,12 @@ const Title = styled.h3`
   letter-spacing: -0.2px;
   padding-top: 18px;
   line-height: 1.3;
+  word-break: keep-all;
+  word-wrap: break-word;
+
+  ${media.lessThan("lg")`
+  font-size: 18px;
+  `};
 `;
 
 const Price = styled.div`
@@ -65,6 +76,11 @@ const Price = styled.div`
   font-size: 28px;
   margin-top: 15px;
   letter-spacing: -0.2px;
+
+  ${media.lessThan("lg")`
+  margin-top: 5px;
+  font-size: 24px;
+  `};
 `;
 
 export default PhotoCard;
