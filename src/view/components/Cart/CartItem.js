@@ -6,16 +6,22 @@ import { URL } from "../../../constants/Consts";
 import useCartButton from "./../../../hooks/useCartButton";
 
 function CartItem({ item = {} }) {
-  const [totalCount, setTotalCount] = useState(item?.price);
-  const { count, handlePlusButton, handleMinusButton } = useCartButton(item?.count);
+  const [itemPrice, setItemPrice] = useState(item?.price);
+  const { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton } = useCartButton(item?.count);
 
   useEffect(() => {
-    setTotalCount(addCommaPrice(item.price * count));
+    setItemPrice(addCommaPrice(item.price * count));
   }, [count]);
+
+  useEffect(() => {
+    setCount(item?.count);
+  }, [item]);
 
   return (
     <li>
-      <CloseButton>삭제하기</CloseButton>
+      <CloseButton onClick={handleRemoveButton} data-id={item.id}>
+        삭제하기
+      </CloseButton>
       <ItemTitle>{item.itemName}</ItemTitle>
       <ItemInfo>
         <Image>
@@ -34,7 +40,7 @@ function CartItem({ item = {} }) {
           </Count>
         </Info>
       </ItemInfo>
-      <TotalPrice>합계: {totalCount}원</TotalPrice>
+      <TotalPrice>합계: {itemPrice}원</TotalPrice>
     </li>
   );
 }
