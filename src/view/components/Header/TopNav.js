@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { font } from "../../../styled/Font";
 import { useSelector } from "react-redux";
+import { media } from "../../../styled/Responsive";
 
 function TopNav() {
   const { totalCartNum } = useSelector(state => state.app);
@@ -26,6 +27,12 @@ const Container = styled.div`
   height: 48px;
   display: flex;
   align-items: center;
+
+  ${media.lessThan("sm")`
+    order: 2;
+    width: 100px;
+    background:0;
+  `};
 `;
 
 const Contents = styled.div`
