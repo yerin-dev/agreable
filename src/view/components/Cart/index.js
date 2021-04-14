@@ -2,17 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import CartList from "./CartList";
 import CartPayment from "./CartPayment";
-import { getCartStorage } from "../../../lib/Cart";
 
-function CartComponent() {
-  const data = getCartStorage();
-
+function CartComponent({ data }) {
   return (
     <Container>
       <Title>장바구니</Title>
       <Contents>
         <CartList data={data} />
-        <CartPayment />
+        <CartPayment item={data} />
       </Contents>
     </Container>
   );
