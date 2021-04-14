@@ -6,6 +6,7 @@ import { reduceTotalCount, addCommaPrice } from "./../../../lib/Common";
 import { addCart } from "./../../../lib/Cart";
 import { appActions } from "../../../redux/ActionCreators";
 import { media } from "../../../styled/Responsive";
+import { PropTypes } from "prop-types";
 
 function PhotoCard({ item }) {
   const handleOnClick = e => {
@@ -21,14 +22,23 @@ function PhotoCard({ item }) {
     <li>
       <Button onClick={handleOnClick} id={item.id}>
         <Image>
-          <img src={URL.VISUAL_BASE_URL + item.image} alt="" />
+          <img src={URL.VISUAL_BASE_URL + item.image} alt={item.itemName} />
         </Image>
-        <Title>{item.itemName}</Title>
+        <Title className="e_">{item.itemName}</Title>
         {item.price && <Price>{addCommaPrice(item.price)}원</Price>}
       </Button>
     </li>
   );
 }
+
+PhotoCard.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    itemName: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number
+  })
+};
 
 const Button = styled.button`
   background: 0;
@@ -67,6 +77,7 @@ const Title = styled.h3`
 
   ${media.lessThan("lg")`
   font-size: 18px;
+  -webkit-line-clamp: 2;
   `};
 `;
 

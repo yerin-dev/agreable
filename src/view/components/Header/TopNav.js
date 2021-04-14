@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { font } from "../../../styled/Font";
 import { useSelector } from "react-redux";
 import { media } from "../../../styled/Responsive";
+import { PropTypes } from "prop-types";
 
 function TopNav() {
   const { totalCartNum } = useSelector(state => state.app);
@@ -21,6 +22,10 @@ function TopNav() {
     </Container>
   );
 }
+
+TopNav.propTypes = {
+  totalCartNum: PropTypes.number
+};
 
 const Container = styled.div`
   background: #f5f5f5;
