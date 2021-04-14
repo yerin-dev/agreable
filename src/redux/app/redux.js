@@ -1,6 +1,8 @@
 import { createActions, createReducer } from "reduxsauce";
 
-const initialState = {};
+const initialState = {
+  totalCount: 0,  
+};
 
 export const Action = createActions(
   {
