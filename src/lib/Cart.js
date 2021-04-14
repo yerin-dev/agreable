@@ -28,6 +28,26 @@ export const minusCartButton = (id, count) => {
   setCartStorage(data);
 };
 
+export const removeCartItem = id => {
+  const data = getCartStorage();
+  const itemCount = data.find(d => d.id === id).count;
+  let target = data.filter(d => d.id !== id);
+
+  setCartStorage(target);
+
+  return itemCount;
+};
+
+export const reduceTotalPrice = data => {
+  const result = data.map(item => {
+    return item.price * item.count;
+  });
+
+  return result.reduce((a, b) => {
+    return a + b;
+  }, 0);
+};
+
 export const addCart = (id, item) => {
   const data = getCartStorage();
   let target = data.find(d => d.id === id);

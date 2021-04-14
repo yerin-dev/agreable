@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { minusCartButton, plusCartButton } from "../lib/Cart";
+import { minusCartButton, plusCartButton, removeCartItem } from "../lib/Cart";
 import { appActions } from "./../redux/ActionCreators";
 
 function useCartButton(initValue) {
@@ -8,8 +8,7 @@ function useCartButton(initValue) {
   const { totalCartNum } = useSelector(state => state.app);
 
   const handlePlusButton = e => {
-    const current = e.currentTarget;
-    const id = current.parentNode.dataset.id;
+    const id = e.currentTarget.parentNode.dataset.id;
     if (count < 100) {
       plusCartButton(id, count);
       setCount(prev => prev + 1);
@@ -18,8 +17,7 @@ function useCartButton(initValue) {
   };
 
   const handleMinusButton = e => {
-    const current = e.currentTarget;
-    const id = current.parentNode.dataset.id;
+    const id = e.currentTarget.parentNode.dataset.id;
 
     if (count > 1) {
       minusCartButton(id, count);
@@ -28,7 +26,13 @@ function useCartButton(initValue) {
     }
   };
 
-  return { count, handlePlusButton, handleMinusButton };
+  const handleRemoveButton = e => {
+    const id = e.currentTarget.dataset.id;
+    const itemCount = removeCartItem(id);
+    appActions.updateState({ totalCartNum: totalCartNum - itemCount });
+  };
+
+  return { count, setCount, handlePlusButton, handleMinusButton, handleRemoveButton };
 }
 
 export default useCartButton;
