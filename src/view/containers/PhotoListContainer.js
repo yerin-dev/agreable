@@ -8,12 +8,14 @@ function PhotoListContainer({ match }) {
   const { item = [], isLoading } = useSelector(state => state.product);
   const [page, setPage] = useState(1);
 
+  // item api 가져오기
   useEffect(() => {
     productActions.getProductItems({
       page
     });
   }, [page]);
 
+  // 페이지 이동시 item 초기화
   useEffect(() => {
     return () => {
       productActions.deleteHistory();
@@ -21,11 +23,13 @@ function PhotoListContainer({ match }) {
     };
   }, [match.url]);
 
+  // item pagenation
   const getMoreItems = () => {
     if (6 <= page) return;
     setPage(prevPage => prevPage + 1);
   };
 
+  // infiniteScroll 옵션
   const options = {
     rootMargin: "25%"
   };
