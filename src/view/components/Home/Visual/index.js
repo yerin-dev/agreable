@@ -6,6 +6,7 @@ import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Virtual, Autoplay } from "swiper/core";
 import _ from "lodash";
+import { media } from "../../../../styled/Responsive";
 
 function Visual({ data }) {
   const ref = useRef();
@@ -34,11 +35,13 @@ function Visual({ data }) {
         <Swiper {...settings} ref={ref}>
           {data.map((item, idx) => (
             <SwiperSlide key={idx} virtualIndex={idx}>
-              <img src={URL.VISUAL_BASE_URL + item.image} alt="" />
+              <img src={URL.VISUAL_BASE_URL + item.image} alt="" className="pc_image" />
+              <img src={URL.VISUAL_BASE_URL + item.mobileImage} alt="" className="mobile_image" />
             </SwiperSlide>
           ))}
         </Swiper>
-        <PlaceHolderImage src="https://via.placeholder.com/1200x400.png/f5f5f5/f5f5f5%20?text=no%20image" />
+        <PlaceHolderImage src="https://via.placeholder.com/1200x400.png/f5f5f5/f5f5f5%20?text=no%20image" className="pc_image" />
+        <PlaceHolderImage src="https://via.placeholder.com/1080x648.png/f5f5f5/f5f5f5%20?text=no%20image" className="mobile_image" />
       </Contents>
     </Container>
   );
@@ -46,8 +49,10 @@ function Visual({ data }) {
 
 Visual.propTypes = {
   data: PropTypes.array,
-  image: PropTypes.string,
-  mobileImage: PropTypes.string
+  item: PropTypes.shape({
+    image: PropTypes.string,
+    mobileImage: PropTypes.string
+  })
 };
 
 const Container = styled.div`
@@ -56,7 +61,6 @@ const Container = styled.div`
   justify-content: center;
   position: relative;
   z-index: 0;
-  padding: 0 12px;
   box-sizing: border-box;
   border-bottom: 1px solid #ddd;
 `;
@@ -66,6 +70,20 @@ const Contents = styled.div`
   max-width: 1600px;
   background: #f5f5f5;
   position: relative;
+
+  .mobile_image {
+    display: none;
+
+    ${media.lessThan("sm")`
+      display: block;
+    `};
+  }
+
+  .pc_image {
+    ${media.lessThan("sm")`
+      display: none;
+    `};
+  }
 
   .swiper-container {
     position: absolute;
