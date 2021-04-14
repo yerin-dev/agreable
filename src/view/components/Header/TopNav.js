@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { font } from "../../../styled/Font";
 import { useSelector } from "react-redux";
 
 function TopNav() {
-  const { totalCount } = useSelector(state => state.app);
+  const { totalCartNum } = useSelector(state => state.app);
 
   return (
     <Container>
       <Contents>
         <Cart>
           <Link to="/cart">
-            <Num>{totalCount}</Num>
+            <Num>{totalCartNum}</Num>
             <span>장바구니</span>
           </Link>
         </Cart>

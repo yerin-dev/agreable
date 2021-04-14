@@ -1,7 +1,7 @@
 import { createActions, createReducer } from "reduxsauce";
 
 const initialState = {
-  totalCount: 0,  
+  totalCartNum: 0,  
 };
 
 export const Action = createActions(
