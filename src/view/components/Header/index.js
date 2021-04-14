@@ -58,7 +58,7 @@ const Logo = styled(Link)`
     width: 150px;
 
     ${media.lessThan("sm")`
-    width: 100%;
+      width: 100%;
     `};
   }
 `;
