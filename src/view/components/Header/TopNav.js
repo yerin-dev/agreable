@@ -7,7 +7,7 @@ import { media } from "../../../styled/Responsive";
 import { PropTypes } from "prop-types";
 
 function TopNav() {
-  const { totalCartNum } = useSelector(state => state.app);
+  const { totalCartNum } = useSelector(state => state.cart);
 
   return (
     <Container>
