@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
+import { media } from "../../../styled/Responsive";
+import { PropTypes } from "prop-types";
 
 function CartList({ data }) {
   return (
@@ -14,8 +16,20 @@ function CartList({ data }) {
   );
 }
 
+CartList.propTypes = {
+  data: PropTypes.array
+};
+
 const Container = styled.div`
   width: calc(100% - 524px);
+
+  ${media.lessThan("lg")`
+    width:calc(100% - 424px);
+  `};
+
+  ${media.lessThan("md")`
+    width:100%;
+  `};
 
   li {
     padding: 18px 15px;
