@@ -4,7 +4,7 @@ import { URL } from "../../../constants/Consts";
 import { font } from "../../../styled/Font";
 import { reduceTotalCount, addCommaPrice } from "./../../../lib/Common";
 import { addCart } from "./../../../lib/Cart";
-import { appActions } from "../../../redux/ActionCreators";
+import { cartActions } from "../../../redux/ActionCreators";
 import { media } from "../../../styled/Responsive";
 import { PropTypes } from "prop-types";
 
@@ -13,7 +13,7 @@ function PhotoCard({ item }) {
     const targetId = e.currentTarget.id;
     const [data] = addCart(targetId, item);
 
-    appActions.updateState({
+    cartActions.updateState({
       totalCartNum: reduceTotalCount(data)
     });
   };
