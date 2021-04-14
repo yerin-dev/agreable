@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./../components/Header/index";
+import Header from "../components/Header/index";
 import { appActions } from "../../redux/ActionCreators";
-import { totalCount, handleLocalStorage } from "../../lib/Common";
+import { reduceTotalCount } from "../../lib/Common";
+import { getCartStorage } from "../../lib/Cart";
 
 function HeaderContainer() {
-  const data = handleLocalStorage("parse", "cart");
+  const data = getCartStorage();
 
-  appActions.updateState({
-    totalCount: totalCount(data, "count")
-  });
+  if (data) {
+    appActions.updateState({
+      totalCartNum: reduceTotalCount(data)
+    });
+  }
 
   return <Header />;
 }
-
-const Container = styled.div``;
 
 export default HeaderContainer;
