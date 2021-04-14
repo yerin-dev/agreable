@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header/index";
-import { appActions } from "../../redux/ActionCreators";
+import { cartActions } from "../../redux/ActionCreators";
 import { reduceTotalCount } from "../../lib/Common";
 import { getCartStorage } from "../../lib/Cart";
 import { PropTypes } from "prop-types";
 
 function HeaderContainer() {
-  const data = getCartStorage();
-
-  if (data) {
-    appActions.updateState({
-      totalCartNum: reduceTotalCount(data)
-    });
-  }
+  useEffect(() => {
+    const data = getCartStorage();
+    if (data) {
+      cartActions.updateState({
+        totalCartNum: reduceTotalCount(data)
+      });
+    }
+  }, []);
 
   return <Header />;
 }
