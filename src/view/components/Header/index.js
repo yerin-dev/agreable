@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TopNav from "./TopNav";
+import { media } from "../../../styled/Responsive";
 
 function Header() {
   return (
@@ -17,7 +18,18 @@ function Header() {
     </Container>
   );
 }
-const Container = styled.div``;
+const Container = styled.div`
+  ${media.lessThan("sm")`
+    display:flex;
+    justify-content: space-between;
+    padding: 0 3.5%;
+    width:100%;
+    box-sizing:border-box;
+    height: 128px;
+    padding-top:30px;
+    border-bottom: 1px solid #ddd;
+  `};
+`;
 
 const Contents = styled.div`
   display: flex;
@@ -29,6 +41,14 @@ const Contents = styled.div`
   background: #fff;
   border-bottom: 1px solid #ddd;
   justify-content: center;
+
+  ${media.lessThan("sm")`
+    order: 1;
+    width:130px;
+    height: auto;
+    align-items: flex-start;
+    border-bottom: 0;
+  `};
 `;
 
 const Logo = styled(Link)`
@@ -36,6 +56,10 @@ const Logo = styled(Link)`
   align-items: center;
   img {
     width: 150px;
+
+    ${media.lessThan("sm")`
+    width: 100%;
+    `};
   }
 `;
 
