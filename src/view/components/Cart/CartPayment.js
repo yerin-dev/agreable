@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { font } from "../../../styled/Font";
+import { addCommaPrice } from "../../../lib/Common";
+import { getCartStorage, reduceTotalPrice } from "./../../../lib/Cart";
 
-function CartPayment() {
+function CartPayment({ item }) {
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const data = getCartStorage();
+    setTotalPrice(reduceTotalPrice(data));
+  }, [item]);
+
   return (
     <Container>
       <Payment>
         <p>결제 예정 금액</p>
-        <Price>17,700원</Price>
+        <Price>{addCommaPrice(totalPrice)}원</Price>
       </Payment>
       <Button>주문하기</Button>
     </Container>
@@ -33,6 +42,7 @@ const Payment = styled.div`
     font-size: 22px;
     letter-spacing: -0.4px;
     color: #555;
+    width: 150px;
   }
 `;
 
@@ -41,6 +51,8 @@ const Price = styled.div`
   font-weight: 700;
   color: #ff3f42;
   font-size: 36px;
+  width: calc(100% - 150px);
+  text-align: right;
 `;
 
 const Button = styled.button`
